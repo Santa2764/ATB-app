@@ -1,0 +1,109 @@
+﻿<Window x:Class="StoreExam.Views.UserSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StoreExam.Views"
+        mc:Ignorable="d"
+        Title="Settings account" Height="400" Width="320" MinHeight="300" MinWidth="250" WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UI_Settings/Styles/BaseStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBox" BasedOn="{StaticResource baseTextBoxStyle}">
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="Margin" Value="9 1 9 7"/>
+                <EventSetter Event="TextChanged" Handler="TextBox_TextChanged"/>
+            </Style>
+
+            <Style x:Key="headerTBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource mediumBlackTextBlockStyle}">
+                <Setter Property="Margin" Value="7 0 0 0"/>
+            </Style>
+
+            <Style x:Key="textBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource verySmallBlackTextBlockStyle}">
+                <Setter Property="FontWeight" Value="Medium"/>
+                <Setter Property="Margin" Value="7 5 0 0"/>
+            </Style>
+
+            <Style x:Key="borderStyle" TargetType="Border" BasedOn="{StaticResource baseBorderStyle}">
+                <Setter Property="Margin" Value="6 0 6 10"/>
+                <Setter Property="Padding" Value="1 8"/>
+                <Setter Property="MaxWidth" Value="500"/>
+            </Style>
+
+            <Style x:Key="btnStyle" TargetType="Button" BasedOn="{StaticResource baseButtonStyle}">
+                <Setter Property="Margin" Value="10 0 10 10"/>
+                <Setter Property="Padding" Value="0 2 0 3"/>
+                <Setter Property="MaxWidth" Value="500"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Window.Background>
+        <StaticResource ResourceKey="BGWindow"/>
+    </Window.Background>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel>
+            <TextBlock Margin="0 10" HorizontalAlignment="Center" Style="{StaticResource mediumBlackTextBlockStyle}">Профиль</TextBlock>
+            <Image Width="40" Height="40" Margin="0 0 0 10" Source="/Images/account.png"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <StackPanel>
+                <Border Style="{StaticResource borderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource headerTBlockStyle}">Основная информация</TextBlock>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource textBlockStyle}">Имя:</TextBlock>
+                            <TextBox Text="{Binding User.Name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Tag="{StaticResource DefName}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource textBlockStyle}">Фамилия:</TextBlock>
+                            <TextBox Text="{Binding User.Surname, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Tag="{StaticResource DefSurname}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource textBlockStyle}">Электрорнная почта:</TextBlock>
+                            <TextBox Text="{Binding User.Email, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Tag="{StaticResource DefEmail}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                
+                <Border Style="{StaticResource borderStyle}">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource headerTBlockStyle}">Безопасность</TextBlock>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource textBlockStyle}">Контактный номер:</TextBlock>
+                            <TextBox x:Name="textBoxNumTel" Text="{Binding User.NumTel, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Tag="{StaticResource DefNumTel}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource textBlockStyle}">Старый пароль:</TextBlock>
+                            <TextBox x:Name="textBoxOldPassword"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource textBlockStyle}">Новый пароль:</TextBlock>
+                            <TextBox x:Name="textBoxNewPassword" Tag="{StaticResource DefPassword}"/>
+                        </StackPanel>
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource textBlockStyle}">Подтвердите пароль:</TextBlock>
+                            <TextBox x:Name="textBoxConfirmNewPassword"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <Button x:Name="btnSave" Style="{StaticResource btnStyle}" Click="BtnSave_Click">Сохранить</Button>
+                <Button Style="{StaticResource btnStyle}" Click="BtnExit_Click">Выйти</Button>
+                <Button Background="{StaticResource DeleteColor}" Style="{StaticResource btnStyle}" Click="BtnDelAccount_Click">Удалить аккаунт</Button>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+</Window>
